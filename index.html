@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+
+		<!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+    <style>
+      .reveal h2 {
+        font-family: "PT Mono";
+        text-transform: none;
+        font-weight: 600;
+        font-size: 98px;
+      }
+  
+      .reveal h3 {
+        font-family: "PT Mono";
+        text-transform: none;
+        font-weight: 600;
+      }
+
+      .slides {
+        font-family: "PT Mono";
+        letter-spacing: -0.03em;
+      }
+
+      .reveal .controls {
+        color: rgb(56, 184, 50);
+      }
+
+      .reveal .progress {
+        color: rgb(56, 184, 50);
+      }
+
+      pre {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      code {
+        font-family: 'Fira Code iScript' !important;
+        background-color: #1f1f1f !important;
+      }
+
+      code::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .hljs-keyword {
+        font-style: italic;
+      }
+
+      .hljs-ln-n {
+        width: 25px;
+      }
+    </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides ">
+				<section>
+          <h2 style="text-transform: none; font-weight: 300; font-size: 98px;">
+            Swagger
+            <span style="color: rgb(56, 184, 50);">Codegen</span>
+          </h2>
+
+					<p style="text-transform: none; opacity: 0.7;">Генерируем типы и http-клиент</p>
+        </section>
+      
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+        </section>
+      
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+          <ol style="margin-left: 110px; font-size: 36px; line-height: 1.1;">
+            <li class="fragment" style="margin-bottom: 16px;">Приходится руками описывать все модели, которые приходят с бекенда</li>
+            <li class="fragment" style="margin-bottom: 16px;">Приходится переписывать уже написанное, когда обновляется бэк</li>
+            <li class="fragment" style="margin-bottom: 16px;">Приходится руками писать все запросы к серверу и поддерживать их</li>
+            <li class="fragment" style="margin-bottom: 16px;">Бэк может обновиться, а мы об этом можем не узнать</li>
+          </ol>
+        </section>
+      
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Решение</h2>
+        </section>
+      
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Решение</h2>
+
+          <h3 class="fragment">Swagger <span style="color: rgb(56, 184, 50);">Codegen</span></h3>
+          <img class="fragment" style="position: absolute; top: 0; left: 0;" src="/images/WS2k.gif">
+          <img class="fragment" style="" src="/images/WS2k.gif">
+          <img class="fragment" style="position: absolute; top: 0; right: 0;" src="/images/WS2k.gif">
+        </section>
+      
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h3>Swagger <span style="color: rgb(56, 184, 50);">Codegen</span></h3>
+          <p>Инструмент, который генерирует вам код на основне swagger.yaml файла</p>
+        </section>
+      
+        <section>
+          <h2 class="shout">Как использовать?</h2>
+        </section>
+    
+        <section>
+          <h2>Установка</h2>
+          <pre>
+            <code class="hljs bash" data-trim>
+              brew install swagger-codegen
+            </code>
+          </pre>
+        </section>
+
+        <section data-auto-animate>
+					<h2>Генерация</h2>
+					<pre data-id="code-animation">
+            <code class="hljs json" data-trim data-line-numbers>
+              "scripts": {
+                "prepare": "husky install",
+                "build": "nuxt build",
+                "dev": "nuxt dev",
+                "start": "node .output/server/index.mjs",
+                ...
+              }
+					  </code>
+          </pre>
+				</section>
+
+        <section data-auto-animate>
+					<h2>Генерация</h2>
+					<pre data-id="code-animation">
+            <code class="hljs json" data-trim data-line-numbers="|6|7|8|9|10|11">
+              "scripts": {
+                "prepare": "husky install",
+                "build": "nuxt build",
+                "dev": "nuxt dev",
+                "start": "node .output/server/index.mjs",
+                "generate:api:academgen": "swagger-codegen generate
+                  -i https://academgen.wbd.dev.skbx.pro/docs/api.yml
+                  -l typescript-axios
+                  -o ./swagger/academgen
+                  -t ./swagger/generator
+                  --additional-properties modelPropertyNaming=original",
+              }
+            </code>
+          </pre>
+				</section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Что получаем на выходе?</h2>
+        </section>
+        
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Что получаем на выходе?</h2>
+          <div style="display: flex; justify-content: space-evenly; height: 60%">
+            <img style="height: 356px;" src="/images/1.png" alt="">
+            <img style="height: 246px;" class="fragment" src="/images/2.png" alt="">
+            <img style="height: 400px;" class="fragment" src="/images/3.png" alt="">
+          </div>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Использование</h2>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Использование</h2>
+          <pre data-id="code-animation">
+            <code class="hljs ts" data-trim data-line-numbers="|1|5|8-12" style="font-family: 'Fira Code iScript';">
+              import { FiltersApi } from '@/swagger/academgen/api'
+
+              export default () => {
+                const { $axios } = useNuxtApp()
+                const filtersApi = new FiltersApi(undefined, `${API_URL}/api`, $axios)
+
+                return {
+                  get(...params: Parameters&lt;typeof filtersApi.getCourses&gt;) {
+                    return filtersApi.getCourses(...params).then((res) => {
+                      return mapData(res.data.data)
+                    })
+                  },
+                }
+              }
+            </code>
+            <img style="position: absolute; z-index: 100; bottom: -40px; right: -17px; width: 100px; transform: rotate(-25deg);" src="/images/vanya.png" alt="">
+          </pre>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+          </div>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
+          </div>
+          <p class="fragment r-fit-text">Просить открыть <span style="color: rgb(56, 184, 50);">swagger.yaml</span> без пароля</p>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 1;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+          </div>
+        </section>
+
+        <section>
+          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+            <div style="text-align: left;">
+              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+              <p class="fragment">- Попросите бекендров поставить расширение в IDE для <span style="color: rgb(56, 184, 50);">Open API</span> или <span style="color: rgb(56, 184, 50);">Swagger</span>.</p>
+              <p class="fragment">- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
+            </div>
+          </section>
+          <section data-auto-animate>
+            <pre data-id="code-animation">
+              <code class="hljs yaml" data-trim data-line-numbers="|8">
+                /v1/companies/list:
+                  get:
+                    summary: "Роут для получения компаний"
+                    operationId: getCompaniesList
+                    tags:
+                      - companies
+                    parameters:
+                      - name: ids
+                        in: query
+                        schema:
+                          type: array
+                          minItems: 0
+                          items:
+                            type: number
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate>
+            <pre data-id="code-animation">
+              <code class="hljs yaml" data-trim data-line-numbers="8">
+                /v1/companies/list:
+                  get:
+                    summary: "Роут для получения компаний"
+                    operationId: getCompaniesList
+                    tags:
+                      - companies
+                    parameters:
+                      - name: ids[]
+                        in: query
+                        schema:
+                          type: array
+                          minItems: 0
+                          items:
+                            type: number
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate>
+            <pre data-id="code-animation-1">
+              <code class="hljs yaml" data-trim data-line-numbers="|10-25">
+                responses:
+                  "200":
+                    description: "Успешный ответ, содержащий данные о компаниях"
+                    content:
+                      application/json:
+                        schema:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              additionalProperties:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                  slug:
+                                    type: string
+                                  name:
+                                    type: string
+                                  abbreviation:
+                                    type: string
+                                    nullable: true
+                                  logo:
+                                    type: string
+                                    nullable: true
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate>
+            <pre data-id="code-animation-1">
+              <code class="hljs yaml" data-trim data-line-numbers="10">
+                responses:
+                  "200":
+                    description: "Успешный ответ, содержащий данные о компаниях"
+                    content:
+                      application/json:
+                        schema:
+                          type: object
+                          properties:
+                            data:
+                              $ref: "#/components/schemas/CompaniesList"
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+            <div style="text-align: left;">
+              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+              <p>- Попросите бекендров поставить расширение в IDE для <span style="color: rgb(56, 184, 50);">Open API</span> или <span style="color: rgb(56, 184, 50);">Swagger</span>.</p>
+              <p>- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
+            </div>
+          </section>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 1;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 1;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+          </div>
+        </section>
+
+        <section>
+          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+            <div style="text-align: left;">
+              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+              <p class="fragment">Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
+            </div>
+          </section>
+
+          <section>
+            <h3 style="color: #E50000;">Не правильно</h3>
+
+            <pre>
+              <code class="hljs yaml">https://some.api.url/api?ids[]=1,2,3</code>
+            </pre>
+
+            <h3 style="color: rgb(56, 184, 50);">Правильно</h3>
+
+            <pre>
+              <code class="hljs yaml">https://some.api.url/api?ids[]=1&ids[]=2&ids[]=3</code>
+            </pre>
+          </section>
+
+          <section data-auto-animate>
+            <pre data-id="code-animation-2">
+              <code class="hljs ts" data-trim data-line-numbers>
+                query.set(key, localVarQueryParameter[key]);
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate>
+            <pre data-id="code-animation-2">
+              <code class="hljs ts" data-trim data-line-numbers="1-5,7">
+                if (Array.isArray(localVarQueryParameter[key])) {
+                  localVarQueryParameter[key].forEach((element: string) => {
+                    query.append(key, element);
+                  });
+                } else {
+                  query.set(key, localVarQueryParameter[key]);
+                }
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+            <div style="text-align: left;">
+              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+              <p>Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
+            </div>
+          </section>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Проблемы</h2>
+
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 1;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 1;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 1;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+          </div>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Тезисы</h2>
+
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment">🛠️ <span style="color: rgb(56, 184, 50);">Просите</span> бекендеров писать operationId и выносить модели в отдельные именованные компоненты</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment">🚂 <span style="color: rgb(56, 184, 50);">Откройте</span> путь до ямл файла без пароля</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment">📚 <span style="color: rgb(56, 184, 50);">Переопределяйте</span> шаблон генерации, если есть проблемы в автогенном коде</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment">🗑️ <span style="color: rgb(56, 184, 50);">Удаляйте</span> папку со старым кодом перед запуском генерации</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment">🏆 <span style="color: rgb(56, 184, 50);">Кайфуйте</span></p>
+          </div>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <h2>Итог</h2>
+
+          <p class="fragment">ВСЕ ХОРОШО</p>
+        </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
