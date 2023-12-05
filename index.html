@@ -4,7 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Swagger Codegen</title>
+
+		<meta name="description" content="Доклад о генерации кода с помощью swagger-codegen">
+		<meta name="author" content="Pavel Gonzales">
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -206,9 +209,9 @@
           <h2>Проблемы</h2>
 
           <div style="text-align: left;">
-            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
-            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
-            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 1. Закрытый под паролем путь до yaml файла</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p style="margin-bottom: 16px; font-size: 38px;" class="fragment"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
           </div>
         </section>
 
@@ -237,9 +240,30 @@
               <p class="fragment">- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
             </div>
           </section>
+
           <section data-auto-animate>
             <pre data-id="code-animation">
-              <code class="hljs yaml" data-trim data-line-numbers="|8">
+              <code class="hljs yaml" data-trim data-line-numbers>
+                /v1/companies/list:
+                  get:
+                    summary: "Роут для получения компаний"
+                    tags:
+                      - companies
+                    parameters:
+                      - name: ids
+                        in: query
+                        schema:
+                          type: array
+                          minItems: 0
+                          items:
+                            type: number
+              </code>
+            </pre>
+          </section>
+
+          <section data-auto-animate>
+            <pre data-id="code-animation">
+              <code class="hljs yaml" data-trim data-line-numbers="4|8">
                 /v1/companies/list:
                   get:
                     summary: "Роут для получения компаний"
@@ -328,6 +352,37 @@
             </pre>
           </section>
 
+          <section data-auto-animate>
+            <pre data-id="code-animation-2">
+              <code class="hljs yaml" data-trim data-line-numbers>
+                /v1/companies/list:
+                  get:
+                    summary: "Роут для получения компаний"
+                    operationId: getCompaniesList
+                    tags:
+                      - companies
+                    parameters:
+                      - name: ids[]
+                        in: query
+                        schema:
+                          type: array
+                          minItems: 0
+                          items:
+                            type: number
+                    responses:
+                      "200":
+                        description: "Успешный ответ, содержащий данные о компаниях"
+                        content:
+                          application/json:
+                            schema:
+                              type: object
+                              properties:
+                                data:
+                                  $ref: "#/components/schemas/CompaniesList"
+              </code>
+            </pre>
+          </section>
+
           <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
             <div style="text-align: left;">
               <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
@@ -351,7 +406,9 @@
           <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
             <div style="text-align: left;">
               <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
-              <p class="fragment">Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
+              <div class="fragment">
+                <p>Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
+              </div>
             </div>
           </section>
 
@@ -394,7 +451,9 @@
           <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
             <div style="text-align: left;">
               <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
-              <p>Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
+              <div>
+                <p>Переопределяем шаблоны и передаем флагом <pre><code> -t ./swagger/generator</code></pre></p>
+              </div>
             </div>
           </section>
         </section>
