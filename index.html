@@ -67,6 +67,21 @@
       .hljs-ln-n {
         width: 25px;
       }
+
+      .reveal .slide-number {
+        top: 0;
+        bottom: auto;
+        right: 36px;
+        background-color: green;
+        width: 25px;
+        height: 40px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        border-radius: 0 0 6px 6px;
+        font-family: "PT Mono";
+      }
     </style>
 	</head>
 	<body>
@@ -232,164 +247,162 @@
           </div>
         </section>
 
-        <section>
-          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-            <div style="text-align: left;">
-              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
-              <p class="fragment">- Попросите бекендров поставить расширение в IDE для <span style="color: rgb(56, 184, 50);">Open API</span> или <span style="color: rgb(56, 184, 50);">Swagger</span>.</p>
-              <p class="fragment">- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
-            </div>
-          </section>
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p class="fragment">- Попросите бекендров поставить расширение в IDE для <span style="color: rgb(56, 184, 50);">Open API</span> или <span style="color: rgb(56, 184, 50);">Swagger</span>.</p>
+            <p class="fragment">- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
+          </div>
+        </section>
 
-          <section data-auto-animate>
-            <pre data-id="code-animation">
-              <code class="hljs yaml" data-trim data-line-numbers>
-                /v1/companies/list:
-                  get:
-                    summary: "Роут для получения компаний"
-                    tags:
-                      - companies
-                    parameters:
-                      - name: ids
-                        in: query
-                        schema:
-                          type: array
-                          minItems: 0
-                          items:
-                            type: number
-              </code>
-            </pre>
-          </section>
+        <section data-auto-animate>
+          <pre data-id="code-animation">
+            <code class="hljs yaml" data-trim data-line-numbers>
+              /v1/companies/list:
+                get:
+                  summary: "Роут для получения компаний"
+                  tags:
+                    - companies
+                  parameters:
+                    - name: ids
+                      in: query
+                      schema:
+                        type: array
+                        minItems: 0
+                        items:
+                          type: number
+            </code>
+          </pre>
+        </section>
 
-          <section data-auto-animate>
-            <pre data-id="code-animation">
-              <code class="hljs yaml" data-trim data-line-numbers="4|8">
-                /v1/companies/list:
-                  get:
-                    summary: "Роут для получения компаний"
-                    operationId: getCompaniesList
-                    tags:
-                      - companies
-                    parameters:
-                      - name: ids
-                        in: query
-                        schema:
-                          type: array
-                          minItems: 0
-                          items:
-                            type: number
-              </code>
-            </pre>
-          </section>
+        <section data-auto-animate>
+          <pre data-id="code-animation">
+            <code class="hljs yaml" data-trim data-line-numbers="4|8">
+              /v1/companies/list:
+                get:
+                  summary: "Роут для получения компаний"
+                  operationId: getCompaniesList
+                  tags:
+                    - companies
+                  parameters:
+                    - name: ids
+                      in: query
+                      schema:
+                        type: array
+                        minItems: 0
+                        items:
+                          type: number
+            </code>
+          </pre>
+        </section>
 
-          <section data-auto-animate>
-            <pre data-id="code-animation">
-              <code class="hljs yaml" data-trim data-line-numbers="8">
-                /v1/companies/list:
-                  get:
-                    summary: "Роут для получения компаний"
-                    operationId: getCompaniesList
-                    tags:
-                      - companies
-                    parameters:
-                      - name: ids[]
-                        in: query
-                        schema:
-                          type: array
-                          minItems: 0
-                          items:
-                            type: number
-              </code>
-            </pre>
-          </section>
+        <section data-auto-animate>
+          <pre data-id="code-animation">
+            <code class="hljs yaml" data-trim data-line-numbers="8">
+              /v1/companies/list:
+                get:
+                  summary: "Роут для получения компаний"
+                  operationId: getCompaniesList
+                  tags:
+                    - companies
+                  parameters:
+                    - name: ids[]
+                      in: query
+                      schema:
+                        type: array
+                        minItems: 0
+                        items:
+                          type: number
+            </code>
+          </pre>
+        </section>
 
-          <section data-auto-animate>
-            <pre data-id="code-animation-1">
-              <code class="hljs yaml" data-trim data-line-numbers="|10-25">
-                responses:
-                  "200":
-                    description: "Успешный ответ, содержащий данные о компаниях"
-                    content:
-                      application/json:
-                        schema:
-                          type: object
-                          properties:
-                            data:
-                              type: object
-                              additionalProperties:
-                                type: object
-                                properties:
-                                  id:
-                                    type: integer
-                                  slug:
-                                    type: string
-                                  name:
-                                    type: string
-                                  abbreviation:
-                                    type: string
-                                    nullable: true
-                                  logo:
-                                    type: string
-                                    nullable: true
-              </code>
-            </pre>
-          </section>
-
-          <section data-auto-animate>
-            <pre data-id="code-animation-1">
-              <code class="hljs yaml" data-trim data-line-numbers="10">
-                responses:
-                  "200":
-                    description: "Успешный ответ, содержащий данные о компаниях"
-                    content:
-                      application/json:
-                        schema:
-                          type: object
-                          properties:
-                            data:
-                              $ref: "#/components/schemas/CompaniesList"
-              </code>
-            </pre>
-          </section>
-
-          <section data-auto-animate>
-            <pre data-id="code-animation-2">
-              <code class="hljs yaml" data-trim data-line-numbers>
-                /v1/companies/list:
-                  get:
-                    summary: "Роут для получения компаний"
-                    operationId: getCompaniesList
-                    tags:
-                      - companies
-                    parameters:
-                      - name: ids[]
-                        in: query
-                        schema:
-                          type: array
-                          minItems: 0
-                          items:
-                            type: number
-                    responses:
-                      "200":
-                        description: "Успешный ответ, содержащий данные о компаниях"
-                        content:
-                          application/json:
-                            schema:
+        <section data-auto-animate>
+          <pre data-id="code-animation-1">
+            <code class="hljs yaml" data-trim data-line-numbers="|10-25">
+              responses:
+                "200":
+                  description: "Успешный ответ, содержащий данные о компаниях"
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          data:
+                            type: object
+                            additionalProperties:
                               type: object
                               properties:
-                                data:
-                                  $ref: "#/components/schemas/CompaniesList"
-              </code>
-            </pre>
-          </section>
+                                id:
+                                  type: integer
+                                slug:
+                                  type: string
+                                name:
+                                  type: string
+                                abbreviation:
+                                  type: string
+                                  nullable: true
+                                logo:
+                                  type: string
+                                  nullable: true
+            </code>
+          </pre>
+        </section>
 
-          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-            <div style="text-align: left;">
-              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
-              <p>- Попросите бекендров поставить расширение в IDE для <span style="color: rgb(56, 184, 50);">Open API</span> или <span style="color: rgb(56, 184, 50);">Swagger</span>.</p>
-              <p>- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
-            </div>
-          </section>
+        <section data-auto-animate>
+          <pre data-id="code-animation-1">
+            <code class="hljs yaml" data-trim data-line-numbers="10">
+              responses:
+                "200":
+                  description: "Успешный ответ, содержащий данные о компаниях"
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          data:
+                            $ref: "#/components/schemas/CompaniesList"
+            </code>
+          </pre>
+        </section>
+
+        <section data-auto-animate>
+          <pre data-id="code-animation-2">
+            <code class="hljs yaml" data-trim data-line-numbers>
+              /v1/companies/list:
+                get:
+                  summary: "Роут для получения компаний"
+                  operationId: getCompaniesList
+                  tags:
+                    - companies
+                  parameters:
+                    - name: ids[]
+                      in: query
+                      schema:
+                        type: array
+                        minItems: 0
+                        items:
+                          type: number
+                  responses:
+                    "200":
+                      description: "Успешный ответ, содержащий данные о компаниях"
+                      content:
+                        application/json:
+                          schema:
+                            type: object
+                            properties:
+                              data:
+                                $ref: "#/components/schemas/CompaniesList"
+            </code>
+          </pre>
+        </section>
+
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 2. Бекендеры не всегда пишут валидный или отражающий реальность сваггер 😿</p>
+            <p>- Попросите бекендров поставить расширение в IDE для <span style="color: rgb(56, 184, 50);">Open API</span> или <span style="color: rgb(56, 184, 50);">Swagger</span>.</p>
+            <p>- Попросите держать <span style="color: rgb(56, 184, 50);">swagger.yaml</span> в актуальном состоянии</p>
+          </div>
         </section>
 
         <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
@@ -402,60 +415,58 @@
           </div>
         </section>
 
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+            <div class="fragment">
+              <p>Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
+            </div>
+          </div>
+        </section>
+
         <section>
-          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-            <div style="text-align: left;">
-              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
-              <div class="fragment">
-                <p>Переопределяем шаблоны и передаем флагом <pre><code>-t ./swagger/generator</code></pre></p>
-              </div>
-            </div>
-          </section>
+          <h3 style="color: #E50000;">Не правильно</h3>
 
-          <section>
-            <h3 style="color: #E50000;">Не правильно</h3>
+          <pre>
+            <code class="hljs yaml">https://some.api.url/api?ids[]=1,2,3</code>
+          </pre>
 
-            <pre>
-              <code class="hljs yaml">https://some.api.url/api?ids[]=1,2,3</code>
-            </pre>
+          <h3 style="color: rgb(56, 184, 50);">Правильно</h3>
 
-            <h3 style="color: rgb(56, 184, 50);">Правильно</h3>
+          <pre>
+            <code class="hljs yaml">https://some.api.url/api?ids[]=1&ids[]=2&ids[]=3</code>
+          </pre>
+        </section>
 
-            <pre>
-              <code class="hljs yaml">https://some.api.url/api?ids[]=1&ids[]=2&ids[]=3</code>
-            </pre>
-          </section>
+        <section data-auto-animate>
+          <pre data-id="code-animation-2">
+            <code class="hljs ts" data-trim data-line-numbers>
+              query.set(key, localVarQueryParameter[key]);
+            </code>
+          </pre>
+        </section>
 
-          <section data-auto-animate>
-            <pre data-id="code-animation-2">
-              <code class="hljs ts" data-trim data-line-numbers>
+        <section data-auto-animate>
+          <pre data-id="code-animation-2">
+            <code class="hljs ts" data-trim data-line-numbers="1-5,7">
+              if (Array.isArray(localVarQueryParameter[key])) {
+                localVarQueryParameter[key].forEach((element: string) => {
+                  query.append(key, element);
+                });
+              } else {
                 query.set(key, localVarQueryParameter[key]);
-              </code>
-            </pre>
-          </section>
+              }
+            </code>
+          </pre>
+        </section>
 
-          <section data-auto-animate>
-            <pre data-id="code-animation-2">
-              <code class="hljs ts" data-trim data-line-numbers="1-5,7">
-                if (Array.isArray(localVarQueryParameter[key])) {
-                  localVarQueryParameter[key].forEach((element: string) => {
-                    query.append(key, element);
-                  });
-                } else {
-                  query.set(key, localVarQueryParameter[key]);
-                }
-              </code>
-            </pre>
-          </section>
-
-          <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-            <div style="text-align: left;">
-              <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
-              <div>
-                <p>Переопределяем шаблоны и передаем флагом <pre><code> -t ./swagger/generator</code></pre></p>
-              </div>
+        <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
+          <div style="text-align: left;">
+            <p style="margin-bottom: 16px; font-size: 38px;"><span style="position: absolute; left: -50px; opacity: 0;">✅</span> 3. Готовый шаблон не всегда генерирует что нам нужно</p>
+            <div>
+              <p>Переопределяем шаблоны и передаем флагом <pre><code> -t ./swagger/generator</code></pre></p>
             </div>
-          </section>
+          </div>
         </section>
 
         <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
@@ -505,6 +516,7 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+        slideNumber: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
